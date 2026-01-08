@@ -1,7 +1,7 @@
 "use client";
 
 import { Bell, Moon, Sun, ChevronDown, Menu, X } from "lucide-react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -14,6 +14,7 @@ import {
 import { useState } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface TopbarProps {
   isMobileOpen?: boolean;
@@ -34,10 +35,40 @@ function getPageTitle(pathname: string): string {
     .join(" ");
 }
 
+function getRoleDisplayName(role: string | null): string {
+  switch (role) {
+    case "super-admin":
+      return "Super Admin";
+    case "operational-manager":
+      return "Operational Manager";
+    case "admin":
+      return "Admin";
+    default:
+      return "User";
+  }
+}
+
+function getInitials(email: string): string {
+  return email
+    .split("@")[0]
+    .split(".")
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase()
+    .slice(0, 2) || "U";
+}
+
 export function Topbar({ isMobileOpen = false, onMobileToggle, isSidebarCollapsed = false }: TopbarProps) {
   const pathname = usePathname();
   const [isDarkMode, setIsDarkMode] = useState(false);
   const pageTitle = getPageTitle(pathname);
+  const { user, logout } = useAuth();
+  const router = useRouter();
+
+  const handleLogout = () => {
+    logout();
+    router.push("/");
+  };
 
   return (
     <header className={cn(
@@ -106,11 +137,17 @@ export function Topbar({ isMobileOpen = false, onMobileToggle, isSidebarCollapse
               >
                 <div className="flex items-center gap-2">
                   <div className="h-8 w-8 rounded-full bg-gradient-to-br from-[#0B1D39] to-[#08162D] flex items-center justify-center flex-shrink-0 shadow-md">
-                    <span className="text-xs font-semibold text-white">AM</span>
+                    <span className="text-xs font-semibold text-white">
+                      {user ? getInitials(user.email) : "U"}
+                    </span>
                   </div>
                   <div className="hidden lg:flex flex-col items-start">
-                    <span className="text-sm font-medium text-[#0B1D39]">Alex Morgan</span>
-                    <span className="text-xs text-[#6B7280]">Administrator</span>
+                    <span className="text-sm font-medium text-[#0B1D39]">
+                      {user?.email || "User"}
+                    </span>
+                    <span className="text-xs text-[#6B7280]">
+                      {user ? getRoleDisplayName(user.role) : "Guest"}
+                    </span>
                   </div>
                   <ChevronDown className="h-4 w-4 text-[#6B7280] hidden sm:block" />
                 </div>
@@ -122,7 +159,9 @@ export function Topbar({ isMobileOpen = false, onMobileToggle, isSidebarCollapse
               <DropdownMenuItem>Profile</DropdownMenuItem>
               <DropdownMenuItem>Settings</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="text-[#EF4444]">Log out</DropdownMenuItem>
+              <DropdownMenuItem className="text-[#EF4444]" onClick={handleLogout}>
+                Log out
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

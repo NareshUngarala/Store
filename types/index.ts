@@ -1,11 +1,17 @@
 // Global type definitions for the admin portal
 
+export type UserRole = "super-admin" | "operational-manager" | "admin";
+export type OSType = "StoreOS" | "SpaceOS" | "ServiceOS";
+
 export interface User {
   id: string;
-  name: string;
+  name?: string;
   email: string;
-  role: string;
-  createdAt: Date;
+  password: string;
+  role: UserRole;
+  osType?: OSType; // Only for admin/vendor users
+  createdAt: string;
+  createdBy?: string; // Email of the user who created this user
 }
 
 export interface Product {

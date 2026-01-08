@@ -11,9 +11,8 @@ import {
   createUser,
   getUsersByRole,
   deleteUser,
-  User as UserType,
 } from "@/lib/user-management";
-import { OSType } from "@/types";
+import { User as UserType, OSType } from "@/types";
 
 export default function VendorsPage() {
   const { user } = useAuth();

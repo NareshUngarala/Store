@@ -89,7 +89,7 @@ export default function LoginPage() {
               <span className="text-white font-bold text-2xl">BS</span>
             </div>
             <h1 className="text-3xl font-bold text-[#0B1D39] mb-2">Welcome Back</h1>
-            <p className="text-gray-600">Sign in to access your portal</p>
+            <p className="text-gray-600">Login to access your portal</p>
             {user && (
               <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
                 <p className="text-sm text-yellow-800">
@@ -154,7 +154,7 @@ export default function LoginPage() {
               className="w-full bg-[#0B1D39] hover:bg-[#08162D] text-white"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Signing in..." : "Sign In"}
+              {isSubmitting ? "Logging in..." : "Login"}
             </Button>
           </form>
 

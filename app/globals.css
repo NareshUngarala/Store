@@ -4,31 +4,41 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    /* StoreOS Color System */
+    /* Base */
+    --background: 210 40% 98%; /* #F8FAFC */
+    --card: 0 0% 100%; /* #FFFFFF */
+    --border: 220 13% 91%; /* #E5E7EB */
+    
+    /* Text */
+    --foreground: 222 47% 10%; /* #0F172A */
+    --muted-foreground: 215 16% 47%; /* #64748B */
+    
+    /* Brand */
+    --primary: 243 75% 59%; /* #4F46E5 */
+    --primary-foreground: 0 0% 100%;
+    
+    /* Accents */
+    --accent-cyan: 188 94% 43%; /* #06B6D4 */
+    --accent-info: 199 89% 48%; /* #38BDF8 */
+    --accent-success: 142 76% 36%; /* #22C55E */
+    --accent-warning: 38 92% 50%; /* #F59E0B */
+    --accent-error: 0 84% 60%; /* #EF4444 */
+    
+    /* Legacy support */
+    --card-foreground: 222 47% 10%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --popover-foreground: 222 47% 10%;
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
+    --muted: 215 16% 47%;
+    --accent: 188 94% 43%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
+    --input: 220 13% 91%;
+    --ring: 243 75% 59%;
+    --radius: 1rem;
   }
 
   .dark {
@@ -38,8 +48,8 @@
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 243 75% 59%;
+    --primary-foreground: 0 0% 100%;
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
     --muted: 217.2 32.6% 17.5%;
@@ -63,8 +73,104 @@
   * {
     @apply border-border;
   }
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+}
+
+/* Glassmorphism utility */
+@layer utilities {
+  .glass {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  
+  /* Sidebar gradient - Dark blue theme */
+  .sidebar-gradient {
+    background: linear-gradient(180deg, #08162D 0%, #0B1D39 100%);
+  }
+  
+  /* Smooth transitions */
+  .transition-smooth {
+    transition: all 200ms ease-in-out;
+  }
+  
+  .transition-smooth-slow {
+    transition: all 300ms ease-in-out;
+  }
+  
+  /* Card hover effects */
+  .card-hover {
+    @apply transition-smooth-slow;
+  }
+  
+  .card-hover:hover {
+    box-shadow: 0 4px 6px -1px rgba(16, 24, 40, 0.08), 0 2px 4px -1px rgba(16, 24, 40, 0.06);
+    border-color: #E5E7EB;
+  }
+  
+  /* Modern sidebar scrollbar */
+  .sidebar-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3) #0B1D39;
+  }
+  
+  .sidebar-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .sidebar-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+    margin: 8px 0;
+  }
+  
+  .sidebar-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  
+  .sidebar-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+@layer utilities {
+  /* Typography utilities */
+  .text-page-title {
+    @apply text-[28px] font-bold leading-tight;
+  }
+  
+  .text-section-title {
+    @apply text-base font-semibold;
+  }
+  
+  .text-table {
+    @apply text-sm;
+  }
+  
+  .text-badge {
+    @apply text-xs;
+  }
+  
+  /* Badge utilities */
+  .badge-success {
+    @apply bg-[#D1FAE5] text-[#059669] text-badge;
+  }
+  
+  .badge-warning {
+    @apply bg-[#FFEDD5] text-[#EA580C] text-badge;
+  }
+  
+  .badge-info {
+    @apply bg-[#DBEAFE] text-[#2563EB] text-badge;
   }
 }
 

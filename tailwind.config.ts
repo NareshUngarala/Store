@@ -43,18 +43,33 @@ const config: Config = {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        chart: {
-          "1": "hsl(var(--chart-1))",
-          "2": "hsl(var(--chart-2))",
-          "3": "hsl(var(--chart-3))",
-          "4": "hsl(var(--chart-4))",
-          "5": "hsl(var(--chart-5))",
+        // Custom badge colors
+        success: {
+          light: "#D1FAE5",
+          DEFAULT: "#059669",
         },
+        warning: {
+          light: "#FFEDD5",
+          DEFAULT: "#EA580C",
+        },
+        info: {
+          light: "#DBEAFE",
+          DEFAULT: "#2563EB",
+        },
+        // Text colors
+        "text-primary": "#111827",
+        "text-secondary": "#6B7280",
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      fontSize: {
+        "page-title": ["28px", { lineHeight: "1.2", fontWeight: "700" }],
+        "section-title": ["16px", { lineHeight: "1.5", fontWeight: "600" }],
+        "table-text": ["14px", { lineHeight: "1.5" }],
+        "badge-text": ["12px", { lineHeight: "1.5" }],
       },
     },
   },
